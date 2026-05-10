@@ -1,0 +1,284 @@
+:: StoryTitle
+The Ember Staff Deluxe
+
+
+:: StoryData
+{
+  "ifid": "A1B2C3D4-E5F6-7890-ABCD-1234567890EF",
+  "format": "Harlowe",
+  "format-version": "3.3.9",
+  "start": "Start",
+  "zoom": 1
+}
+
+
+:: Bad Answer {"position":"925,425","size":"100,100"}
+(display: "Damage 1")
+
+Dark energy surges from the altar and burns your body.
+
+Current Health: $health ❤️
+
+(if: $health <= 0)[
+	[[Be consumed by dark magic->Game Over]]
+]
+(else:)[
+	The voice gives you one final chance.
+
+	[[Answer again wisely->Good Answer]]
+]
+
+
+:: Blue Stairs {"position":"800,425","size":"100,100"}
+At the top of the glowing staircase rests the Ember Staff upon an altar.
+
+A magical voice asks:
+
+"What is the true purpose of power?"
+
+[[“To rule others.”->Bad Answer]]
+[[“To protect and guide.”->Good Answer]]
+
+
+:: Coward End {"position":"425,550","size":"100,100"}
+You escape Black Hollow alive, but the Ember Staff remains lost forever.
+
+''THE END — SAFE BUT UNSUCCESSFUL''
+
+[[Play Again->Start]]
+
+
+:: Damage 1 {"position":"550,300","size":"100,100"}
+(set: $health to it - 1)
+
+
+:: Dark Stairs {"position":"1175,425","size":"100,100"}
+You descend into darkness and awaken an ancient dragon.
+
+Current Health: $health ❤️
+
+[[Fight the dragon->Dragon Fight]]
+[[Run away->Coward End]]
+
+
+:: Dragon Fight {"position":"1300,425","size":"100,100"}
+(display: "Damage 1")
+
+The dragon's fire scorches you badly.
+
+Current Health: $health ❤️
+
+(if: $health <= 0)[
+	[[Burn to ashes->Game Over]]
+]
+(else:)[
+	[[Use illusion magic to escape->Illusion Escape]]
+	[[Continue fighting->Dragon Fight]]
+]
+
+
+:: Fireball {"position":"800,300","size":"100,100"}
+(display: "Damage 1")
+
+Your fireball barely scratches the gargoyle. It slams you into the courtyard wall.
+
+Current Health: $health ❤️
+
+(if: $health <= 0)[
+	[[Collapse from your injuries->Game Over]]
+]
+(else:)[
+	The gargoyle stomps toward you again.
+
+	[[Try illusion magic instead->Illusion]]
+	[[Run away->Coward End]]
+]
+
+
+:: Front Gate {"position":"675,300","size":"100,100"}
+The iron gates creak open. A giant stone gargoyle awakens and blocks your path.
+
+Current Health: $health ❤️
+
+Do you fight it with fire magic or attempt an illusion spell?
+
+[[Cast a fireball->Fireball]]
+[[Use an illusion spell->Illusion]]
+
+
+:: Game Over {"position":"550,550","size":"100,100"}
+Your journey ends in the ruins of Black Hollow.
+
+''GAME OVER''
+
+[[Try Again->Start]]
+
+
+:: Good Answer {"position":"1050,425","size":"100,100"}
+(set: $staff to true)
+
+The magical voice declares you worthy.
+
+The Ember Staff rises into your hands.
+
+[[Claim your victory->Win Ending]]
+
+
+:: Illusion {"position":"925,300","size":"100,100"}
+Your illusion distracts the gargoyle long enough for you to slip inside the tower.
+
+Inside, you discover a glowing blue staircase and a dark staircase descending underground.
+
+Current Health: $health ❤️
+
+[[Climb the glowing staircase->Blue Stairs]]
+[[Descend into darkness->Dark Stairs]]
+
+
+:: Illusion Escape {"position":"1425,425","size":"100,100"}
+You create illusionary copies of yourself and escape the dragon safely.
+
+[[Return to the tower->Blue Stairs]]
+
+
+:: Library Exit {"position":"1550,300","size":"100,100"}
+The throne room lies ahead. The Ember Staff floats above a pedestal while a shadow wizard guards it.
+
+Current Health: $health ❤️
+
+[[Attack with lightning magic->Lightning]]
+[[Use your shield spell->Shield Fight]]
+
+
+:: Lightning {"position":"425,425","size":"100,100"}
+(display: "Damage 1")
+
+Your lightning spell fails against the shadow wizard's defenses.
+
+Current Health: $health ❤️
+
+(if: $health <= 0)[
+	[[Fall before the shadow wizard->Game Over]]
+]
+(else:)[
+	The shadow wizard prepares another attack.
+
+	[[Use the healing crystal->Use Crystal]]
+	[[Attempt the shield spell->Shield Fight]]
+]
+
+
+:: Magic Book {"position":"1425,300","size":"100,100"}
+You learn a magical shield spell.
+
+(set: $shield to true)
+
+SPELL LEARNED: Arcane Shield
+
+[[Continue onward->Library Exit]]
+
+
+:: River Path {"position":"1300,300","size":"100,100"}
+You follow the underground river to a hidden library beneath the fortress.
+
+Current Health: $health ❤️
+
+Ancient books float through the air.
+
+[[Read the glowing book->Magic Book]]
+[[Ignore the books->Library Exit]]
+
+
+:: Shield Fight {"position":"675,425","size":"100,100"}
+(if: $shield is true)[
+	The Arcane Shield reflects the shadow wizard's spell back at him.
+
+	The shadow wizard vanishes in smoke.
+
+	(set: $staff to true)
+
+	You claim the Ember Staff.
+
+	[[Victory->Win Ending]]
+]
+(else:)[
+	(display: "Damage 1")
+
+	Without protection, dark magic tears through your defenses.
+
+	Current Health: $health ❤️
+
+	(if: $health <= 0)[
+		[[Die in the throne room->Game Over]]
+	]
+	(else:)[
+		[[Desperately attack again->Lightning]]
+	]
+]
+
+
+:: Start {"position":"425,300","size":"100,100"}
+(set: $health to 3)
+(set: $shield to false)
+(set: $crystal to false)
+(set: $staff to false)
+
+You are Eldric, a young wizard standing before the gates of the ruined fortress of Black Hollow.
+
+Your goal is to recover the legendary Ember Staff.
+
+You begin with **3 Health**.
+
+Current Health: $health ❤️
+
+Do you enter through the front gate or sneak through the underground tunnels?
+
+[[Enter the front gate->Front Gate]]
+[[Sneak into the tunnels->Tunnels]]
+
+
+:: Take Crystal {"position":"1175,300","size":"100,100"}
+(set: $crystal to true)
+
+You place the healing crystal in your robe pocket.
+
+ITEM GAINED: Healing Crystal
+
+[[Continue onward->River Path]]
+
+
+:: Tunnels {"position":"1050,300","size":"100,100"}
+The tunnels are damp and cold.
+
+You discover an abandoned satchel containing a glowing healing crystal.
+
+[[Take the healing crystal->Take Crystal]]
+[[Leave it behind->River Path]]
+
+
+:: Use Crystal {"position":"550,425","size":"100,100"}
+(if: $crystal is true)[
+	(set: $health to 3)
+	(set: $crystal to false)
+
+	The crystal glows brightly and restores your health completely.
+
+	Current Health: $health ❤️
+
+	[[Face the shadow wizard again->Shield Fight]]
+]
+(else:)[
+	You do not have a healing crystal.
+
+	[[Continue->Shield Fight]]
+]
+
+
+:: Win Ending {"position":"1550,425","size":"100,100"}
+Congratulations! You restored the Ember Staff and survived the dangers of Black Hollow.
+
+Final Health: $health ❤️
+
+''THE END — YOU WIN''
+
+[[Play Again->Start]]
